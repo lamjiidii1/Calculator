@@ -1,40 +1,43 @@
 #include <stdio.h>
 #include <gtk/gtk.h>
 
+
+GtkWidget *entry;
+GtkWidget *grid;
+GtkWidget *button_clear;
+GtkWidget *button_del;
+GtkWidget *button_puis;
+GtkWidget *button_dot;
+GtkWidget *button_add;
+GtkWidget *button_sub;
+GtkWidget *button_multi;
+GtkWidget *button_div;
+GtkWidget *button_eq;
+GtkWidget *button_0;
+GtkWidget *button_1;
+GtkWidget *button_2;
+GtkWidget *button_3;
+GtkWidget *button_4;
+GtkWidget *button_5;
+GtkWidget *button_6;
+GtkWidget *button_7;
+GtkWidget *button_8;
+GtkWidget *button_9;
+
 static void print_hello (GtkWidget *widget, gpointer   data)
 {
     g_print ("Hello World\n");
 }
 
+static void affichage_test (GtkWidget *widget, gpointer   data)
+{
+    gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), "0", strlen("0"));
+}
 
 static void activate (GtkApplication *app, gpointer user_data)
 {
 
     GtkWidget *window;
-    GtkWidget *grid;
-    GtkWidget *entry;
-
-    GtkWidget *button_clear;
-    GtkWidget *button_del;
-    GtkWidget *button_puis;
-    GtkWidget *button_dot;
-
-    GtkWidget *button_add;
-    GtkWidget *button_sub;
-    GtkWidget *button_multi;
-    GtkWidget *button_div;
-    GtkWidget *button_eq;
-
-    GtkWidget *button_0;
-    GtkWidget *button_1;
-    GtkWidget *button_2;
-    GtkWidget *button_3;
-    GtkWidget *button_4;
-    GtkWidget *button_5;
-    GtkWidget *button_6;
-    GtkWidget *button_7;
-    GtkWidget *button_8;
-    GtkWidget *button_9;
 
     /* create a new window, and set its title */
     window = gtk_application_window_new (app);
@@ -127,6 +130,9 @@ static void activate (GtkApplication *app, gpointer user_data)
     button_0 = gtk_button_new_with_mnemonic("0");
 	gtk_grid_attach(GTK_GRID(grid), button_0, 0, 5, 1, 1);
 	gtk_widget_set_size_request(button_0, 60, 60);
+
+    g_signal_connect (button_0, "clicked", G_CALLBACK (affichage_test), NULL);
+
 
     gtk_window_present (GTK_WINDOW (window));
 }
