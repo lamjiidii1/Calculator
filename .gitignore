@@ -1,0 +1,24 @@
+# for codeblocks
+*.depend
+*.layout
+*.bmarks
+bin/
+obj/
+Debug/
+
+# for eclipse
+.settings/
+.cproject
+.project
+
+# for Makefile
+*.o
+main
+main_test
+*.po
+
+# for vscode
+.vscode
+
+# for CMake
+build/
