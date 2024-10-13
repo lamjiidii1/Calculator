@@ -1,5 +1,5 @@
-#ifndef BUTTONS_H
-#define BUTTONS_H
+#ifndef CALCULATOR_H
+#define CALCULATOR_H
 
 #include <gtk/gtk.h>
 

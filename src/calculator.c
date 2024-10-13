@@ -1,4 +1,4 @@
-#include "buttons.h"
+#include "calculator.h"
 #include "globals.h"
 
 static void screen_append(char val){
@@ -57,6 +57,10 @@ void button_dot_clicked(GtkButton *button, GtkEntry *entry) {
     else
     {
         is_dot_clicked=true;
+        if (screen_data[screen_index-1]=='\0')
+        {
+            screen_append('0');
+        }
         screen_append('.');
     }
     gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), screen_data, strlen(screen_data));

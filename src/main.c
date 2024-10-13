@@ -1,8 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <gtk/gtk.h>
-#include "buttons.h"
+#include "calculator.h"
 #include "globals.h"
 
 GtkWidget *entry;
@@ -30,11 +27,6 @@ GtkWidget *button_9;
 char screen_data[30];
 int screen_index=0;
 bool is_dot_clicked=false;
-
-static void print_hello (GtkWidget *widget, gpointer   data)
-{
-    g_print ("Hello World\n");
-}
 
 static void activate (GtkApplication *app, gpointer user_data)
 {
