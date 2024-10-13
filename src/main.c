@@ -1,7 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <gtk/gtk.h>
 #include "buttons.h"
+#include "globals.h"
 
 GtkWidget *entry;
 GtkWidget *grid;
@@ -24,6 +26,9 @@ GtkWidget *button_6;
 GtkWidget *button_7;
 GtkWidget *button_8;
 GtkWidget *button_9;
+
+char screen_data[30];
+int screen_index=0;
 
 static void print_hello (GtkWidget *widget, gpointer   data)
 {
@@ -52,10 +57,12 @@ static void activate (GtkApplication *app, gpointer user_data)
     button_clear = gtk_button_new_with_mnemonic("C");
 	gtk_grid_attach(GTK_GRID(grid), button_clear, 0, 1, 1, 1);
 	gtk_widget_set_size_request(button_clear, 60, 60);
+    g_signal_connect(button_clear, "clicked", G_CALLBACK(button_clear_clicked), entry);
 
     button_del = gtk_button_new_with_mnemonic("del");
 	gtk_grid_attach(GTK_GRID(grid), button_del, 1, 1, 1, 1);
 	gtk_widget_set_size_request(button_del, 60, 60);
+    g_signal_connect(button_del, "clicked", G_CALLBACK(button_del_clicked), entry);
 
     button_puis = gtk_button_new_with_mnemonic("%");
 	gtk_grid_attach(GTK_GRID(grid), button_puis, 2, 1, 1, 1);

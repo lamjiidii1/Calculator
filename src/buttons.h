@@ -3,6 +3,8 @@
 
 #include <gtk/gtk.h>
 
+void button_del_clicked(GtkButton *button, GtkEntry *entry);
+void button_clear_clicked(GtkButton *button, GtkEntry *entry);
 void button_0_clicked(GtkButton *button, GtkEntry *entry);
 void button_1_clicked(GtkButton *button, GtkEntry *entry);
 void button_2_clicked(GtkButton *button, GtkEntry *entry);
