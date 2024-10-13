@@ -46,6 +46,8 @@ void button_clear_clicked(GtkButton *button, GtkEntry *entry) {
     memset(screen_data, '\0', sizeof(screen_data));
     screen_index=0;
     is_dot_clicked=false;
+    is_first_op=false;
+    is_second_op=false;
     gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), screen_data, strlen(screen_data));
 }
 
@@ -64,6 +66,153 @@ void button_dot_clicked(GtkButton *button, GtkEntry *entry) {
         screen_append('.');
     }
     gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), screen_data, strlen(screen_data));
+}
+
+void button_add_clicked(GtkButton *button, GtkEntry *entry) {
+
+    if (is_first_op==false)
+    {
+        strcpy(first_op,screen_data);
+        memset(screen_data, '\0', sizeof(screen_data));
+        
+        screen_index=0;
+        is_dot_clicked=false;
+        gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), screen_data, strlen(screen_data));
+        is_first_op=true;
+        what_op=1;
+    }
+    else
+    {
+        g_print ("Panic!!\n");
+    }
+    
+}
+
+void button_sub_clicked(GtkButton *button, GtkEntry *entry) {
+
+    if (is_first_op==false)
+    {
+        strcpy(first_op,screen_data);
+        memset(screen_data, '\0', sizeof(screen_data));
+        
+        screen_index=0;
+        is_dot_clicked=false;
+        gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), screen_data, strlen(screen_data));
+        is_first_op=true;
+        what_op=2;
+    }
+    else
+    {
+        g_print ("Panic!!\n");
+    }
+    
+}
+
+void button_multi_clicked(GtkButton *button, GtkEntry *entry) {
+
+    if (is_first_op==false)
+    {
+        strcpy(first_op,screen_data);
+        memset(screen_data, '\0', sizeof(screen_data));
+        
+        screen_index=0;
+        is_dot_clicked=false;
+        gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), screen_data, strlen(screen_data));
+        is_first_op=true;
+        what_op=3;
+    }
+    else
+    {
+        g_print ("Panic!!\n");
+    }
+    
+}
+
+void button_div_clicked(GtkButton *button, GtkEntry *entry) {
+
+    if (is_first_op==false)
+    {
+        strcpy(first_op,screen_data);
+        memset(screen_data, '\0', sizeof(screen_data));
+        
+        screen_index=0;
+        is_dot_clicked=false;
+        gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), screen_data, strlen(screen_data));
+        is_first_op=true;
+        what_op=4;
+    }
+    else
+    {
+        g_print ("Panic!!\n");
+    }
+    
+}
+int array_to_num(char arr[],int n){
+    char str[6][3];
+    int i;
+    char number[13] = {'\n'};
+
+    for(i=0;i<n;i++) sprintf(str[i],"%d",arr[i]);
+    for(i=0;i<n;i++)strcat(number,str[i]);
+
+    i = atoi(number);
+    return i;
+}
+
+void button_eq_clicked(GtkButton *button, GtkEntry *entry) {
+
+    if (is_first_op==true)
+    {   
+        
+        strcpy(second_op,screen_data);
+        memset(screen_data, '\0', sizeof(screen_data));
+        screen_index=0;
+        is_dot_clicked=false;
+        gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), screen_data, strlen(screen_data));
+        is_second_op=true;
+
+        sscanf(first_op, "%d", &first_op_int);
+        sscanf(second_op, "%d", &second_op_int);
+
+        if (what_op==1)
+        {
+            g_print ("%d+%d=%d\n",first_op_int,second_op_int,first_op_int+second_op_int);
+            snprintf(screen_data, sizeof(screen_data), "%d", first_op_int+second_op_int);
+        }
+        else if (what_op==2)
+        {
+            g_print ("%d-%d=%d\n",first_op_int,second_op_int,first_op_int-second_op_int);
+            snprintf(screen_data, sizeof(screen_data), "%d", first_op_int-second_op_int);
+        }
+        else if (what_op==3)
+        {
+            g_print ("%d*%d=%d\n",first_op_int,second_op_int,first_op_int*second_op_int);
+            snprintf(screen_data, sizeof(screen_data), "%d", first_op_int*second_op_int);
+        }
+        else if (what_op==4)
+        {
+            g_print ("%d/%d=%d\n",first_op_int,second_op_int,first_op_int/second_op_int);
+            snprintf(screen_data, sizeof(screen_data), "%d", first_op_int/second_op_int);
+        }
+        else
+        {
+            g_print ("Op Panic!!\n");
+        }
+        
+        is_dot_clicked=false;
+        is_first_op=false;
+        is_second_op=false;
+
+        
+        gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), screen_data, strlen(screen_data));
+        memset(screen_data, '\0', sizeof(screen_data));
+        screen_index=0;
+    }
+    else
+    {
+        g_print ("There is nothing we can do!!\n");
+    }
+    
 }
 
 void button_0_clicked(GtkButton *button, GtkEntry *entry) {

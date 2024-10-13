@@ -24,6 +24,15 @@ GtkWidget *button_7;
 GtkWidget *button_8;
 GtkWidget *button_9;
 
+char first_op[14];
+char second_op[14];
+bool is_first_op=false;
+bool is_second_op=false;
+
+int what_op;
+int first_op_int=0;
+int second_op_int=0;
+
 char screen_data[30];
 int screen_index=0;
 bool is_dot_clicked=false;
@@ -65,22 +74,27 @@ static void activate (GtkApplication *app, gpointer user_data)
     button_div = gtk_button_new_with_mnemonic("/");
 	gtk_grid_attach(GTK_GRID(grid), button_div, 3, 1, 1, 1);
 	gtk_widget_set_size_request(button_div, 60, 60);
+    g_signal_connect(button_div, "clicked", G_CALLBACK(button_div_clicked), entry);
 
     button_multi = gtk_button_new_with_mnemonic("x");
 	gtk_grid_attach(GTK_GRID(grid), button_multi, 3, 2, 1, 1);
 	gtk_widget_set_size_request(button_multi, 60, 60);
+    g_signal_connect(button_multi, "clicked", G_CALLBACK(button_multi_clicked), entry);
 
     button_sub = gtk_button_new_with_mnemonic("-");
 	gtk_grid_attach(GTK_GRID(grid), button_sub, 3, 3, 1, 1);
 	gtk_widget_set_size_request(button_sub, 60, 60);
+    g_signal_connect(button_sub, "clicked", G_CALLBACK(button_sub_clicked), entry);
 
     button_add = gtk_button_new_with_mnemonic("+");
 	gtk_grid_attach(GTK_GRID(grid), button_add, 3, 4, 1, 1);
 	gtk_widget_set_size_request(button_add, 60, 60);
+    g_signal_connect(button_add, "clicked", G_CALLBACK(button_add_clicked), entry);
 
     button_eq = gtk_button_new_with_mnemonic("=");
 	gtk_grid_attach(GTK_GRID(grid), button_eq, 2, 5, 2, 1);
 	gtk_widget_set_size_request(button_eq, 60, 60);
+    g_signal_connect(button_eq, "clicked", G_CALLBACK(button_eq_clicked), entry);
 
     /* N buttons */
     button_dot = gtk_button_new_with_mnemonic(".");
