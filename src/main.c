@@ -6,7 +6,6 @@ GtkWidget *entry;
 GtkWidget *grid;
 GtkWidget *button_clear;
 GtkWidget *button_del;
-GtkWidget *button_puis;
 GtkWidget *button_dot;
 GtkWidget *button_add;
 GtkWidget *button_sub;
@@ -48,18 +47,14 @@ static void activate (GtkApplication *app, gpointer user_data)
     gtk_widget_set_size_request(entry, 240, 70);
     
     button_clear = gtk_button_new_with_mnemonic("C");
-	gtk_grid_attach(GTK_GRID(grid), button_clear, 0, 1, 1, 1);
+	gtk_grid_attach(GTK_GRID(grid), button_clear, 0, 1, 2, 1);
 	gtk_widget_set_size_request(button_clear, 60, 60);
     g_signal_connect(button_clear, "clicked", G_CALLBACK(button_clear_clicked), entry);
 
     button_del = gtk_button_new_with_mnemonic("del");
-	gtk_grid_attach(GTK_GRID(grid), button_del, 1, 1, 1, 1);
+	gtk_grid_attach(GTK_GRID(grid), button_del, 2, 1, 1, 1);
 	gtk_widget_set_size_request(button_del, 60, 60);
     g_signal_connect(button_del, "clicked", G_CALLBACK(button_del_clicked), entry);
-
-    button_puis = gtk_button_new_with_mnemonic("%");
-	gtk_grid_attach(GTK_GRID(grid), button_puis, 2, 1, 1, 1);
-	gtk_widget_set_size_request(button_puis, 60, 60);
 
     /* Op buttons */
     button_div = gtk_button_new_with_mnemonic("/");
