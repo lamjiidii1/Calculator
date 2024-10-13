@@ -18,8 +18,8 @@ static void screen_append(char val){
 static void screen_del(){
 
     if (screen_index<30)
-    {
-        screen_data[screen_index]='\0';
+    {   
+        screen_data[screen_index-1]='\0';
         screen_index--;
     }
     else
@@ -31,13 +31,34 @@ static void screen_del(){
 
 
 void button_del_clicked(GtkButton *button, GtkEntry *entry) {
-    screen_del();
+    if (screen_data[screen_index-1]=='.'){
+        is_dot_clicked=false;
+        screen_del();
+    }
+    else
+    {
+        screen_del();
+    }
     gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), screen_data, strlen(screen_data));
 }
 
 void button_clear_clicked(GtkButton *button, GtkEntry *entry) {
     memset(screen_data, '\0', sizeof(screen_data));
     screen_index=0;
+    is_dot_clicked=false;
+    gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), screen_data, strlen(screen_data));
+}
+
+void button_dot_clicked(GtkButton *button, GtkEntry *entry) {
+    if (is_dot_clicked==true)
+    {
+        g_print ("Dot already clicked!\n");
+    }
+    else
+    {
+        is_dot_clicked=true;
+        screen_append('.');
+    }
     gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), screen_data, strlen(screen_data));
 }
 
@@ -91,7 +112,3 @@ void button_9_clicked(GtkButton *button, GtkEntry *entry) {
     gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), screen_data, strlen(screen_data));
 }
 
-void button_dot_clicked(GtkButton *button, GtkEntry *entry) {
-    screen_append('.');
-    gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), screen_data, strlen(screen_data));
-}

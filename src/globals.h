@@ -3,4 +3,6 @@
 
 extern char screen_data[30];
 extern int screen_index;
+extern bool is_dot_clicked;
+
 #endif

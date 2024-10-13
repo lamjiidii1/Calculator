@@ -29,6 +29,7 @@ GtkWidget *button_9;
 
 char screen_data[30];
 int screen_index=0;
+bool is_dot_clicked=false;
 
 static void print_hello (GtkWidget *widget, gpointer   data)
 {
