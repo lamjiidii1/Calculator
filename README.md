@@ -11,8 +11,20 @@ This is personal project to improve my coding skills, similar to a college proje
 ## How to build
 
 * Install GTK, ref: <https://www.gtk.org/docs/installations/linux>
-* `cmake -B build`
-* `cmake --build build`
+
+* Clone Source
+  - `git clone https://github.com/lamjiidii1/Calculator Calculator`
+
+* Pull git submodules
+  - `cd Calculator`
+  - `git submodule update --init`
+
+* Build
+  - `cmake -B build`
+  - `cmake --build build`
+
+* Run
+  - `./build/calculator`
 
 ## License
 
