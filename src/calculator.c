@@ -1,5 +1,6 @@
 #include "calculator.h"
 #include "globals.h"
+#include "tinyexpr/tinyexpr.h"
 
 static void screen_append(char val){
 
@@ -28,7 +29,6 @@ static void screen_del(){
     }
     
 }
-
 
 void button_del_clicked(GtkButton *button, GtkEntry *entry) {
     if (screen_data[screen_index-1]=='.'){
@@ -64,6 +64,49 @@ void button_dot_clicked(GtkButton *button, GtkEntry *entry) {
         screen_append('.');
     }
     gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), screen_data, strlen(screen_data));
+}
+
+void button_add_clicked(GtkButton *button, GtkEntry *entry) {
+    if (screen_data[screen_index-1]!='+' && screen_data[screen_index-1]!='-' && screen_data[screen_index-1]!='*' && screen_data[screen_index-1]!='/')
+    {
+        screen_append('+');
+        gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), screen_data, strlen(screen_data));
+    }    
+}
+
+void button_sub_clicked(GtkButton *button, GtkEntry *entry) {
+    if (screen_data[screen_index-1]!='+' && screen_data[screen_index-1]!='-' && screen_data[screen_index-1]!='*' && screen_data[screen_index-1]!='/')
+    {
+        screen_append('-');
+        gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), screen_data, strlen(screen_data));
+    }    
+}
+
+void button_multi_clicked(GtkButton *button, GtkEntry *entry) {
+    if (screen_data[screen_index-1]!='+' && screen_data[screen_index-1]!='-' && screen_data[screen_index-1]!='*' && screen_data[screen_index-1]!='/')
+    {
+        screen_append('*');
+        gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), screen_data, strlen(screen_data));
+    }    
+}
+
+void button_div_clicked(GtkButton *button, GtkEntry *entry) {
+    if (screen_data[screen_index-1]!='+' && screen_data[screen_index-1]!='-' && screen_data[screen_index-1]!='*' && screen_data[screen_index-1]!='/')
+    {
+        screen_append('/');
+        gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), screen_data, strlen(screen_data));
+    }    
+}
+
+void button_eq_clicked(GtkButton *button, GtkEntry *entry) {
+    result = te_interp(screen_data, 0);
+    memset(screen_data, '\0', sizeof(screen_data));
+    screen_index=0;
+    is_dot_clicked=false;
+    snprintf(screen_data, sizeof(screen_data), "%.2f", result);
+    gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), screen_data, strlen(screen_data));
+    memset(screen_data, '\0', sizeof(screen_data));
+    screen_index=0;
 }
 
 void button_0_clicked(GtkButton *button, GtkEntry *entry) {
@@ -115,4 +158,3 @@ void button_9_clicked(GtkButton *button, GtkEntry *entry) {
     screen_append('9');
     gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), screen_data, strlen(screen_data));
 }
-

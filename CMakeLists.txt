@@ -10,5 +10,7 @@ pkg_check_modules(GTK4 REQUIRED IMPORTED_TARGET gtk4)
 
 add_executable(calculator
     src/main.c
-    src/calculator.c)
+    src/calculator.c
+    src/tinyexpr/tinyexpr.c)
+
 target_link_libraries(calculator PRIVATE PkgConfig::GTK4 m)

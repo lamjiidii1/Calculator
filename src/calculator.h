@@ -2,7 +2,13 @@
 #define CALCULATOR_H
 
 #include <gtk/gtk.h>
+#include "tinyexpr/tinyexpr.h"
 
+void button_multi_clicked(GtkButton *button, GtkEntry *entry);
+void button_div_clicked(GtkButton *button, GtkEntry *entry);
+void button_add_clicked(GtkButton *button, GtkEntry *entry);
+void button_sub_clicked(GtkButton *button, GtkEntry *entry);
+void button_eq_clicked(GtkButton *button, GtkEntry *entry);
 void button_del_clicked(GtkButton *button, GtkEntry *entry);
 void button_dot_clicked(GtkButton *button, GtkEntry *entry);
 void button_clear_clicked(GtkButton *button, GtkEntry *entry);
