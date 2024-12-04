@@ -57,7 +57,7 @@ void button_dot_clicked(GtkButton *button, GtkEntry *entry) {
     else
     {
         is_dot_clicked=true;
-        if (screen_data[screen_index-1]=='\0')
+        if (screen_data[screen_index-1]=='\0' || screen_data[screen_index-1]=='+' || screen_data[screen_index-1]=='-' || screen_data[screen_index-1]=='*' || screen_data[screen_index-1]=='/')
         {
             screen_append('0');
         }
@@ -67,46 +67,61 @@ void button_dot_clicked(GtkButton *button, GtkEntry *entry) {
 }
 
 void button_add_clicked(GtkButton *button, GtkEntry *entry) {
-    if (screen_data[screen_index-1]!='+' && screen_data[screen_index-1]!='-' && screen_data[screen_index-1]!='*' && screen_data[screen_index-1]!='/')
+    if (screen_data[screen_index-1]!='+' && screen_data[screen_index-1]!='-' && screen_data[screen_index-1]!='*' && screen_data[screen_index-1]!='/' && screen_data[screen_index-1]!='\0' && screen_data[screen_index-1]!='.')
     {
         screen_append('+');
         gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), screen_data, strlen(screen_data));
+        is_dot_clicked=false;
     }    
 }
 
 void button_sub_clicked(GtkButton *button, GtkEntry *entry) {
-    if (screen_data[screen_index-1]!='+' && screen_data[screen_index-1]!='-' && screen_data[screen_index-1]!='*' && screen_data[screen_index-1]!='/')
+    if (screen_data[screen_index-1]!='+' && screen_data[screen_index-1]!='-' && screen_data[screen_index-1]!='*' && screen_data[screen_index-1]!='/' && screen_data[screen_index-1]!='\0' && screen_data[screen_index-1]!='.')
     {
         screen_append('-');
         gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), screen_data, strlen(screen_data));
+        is_dot_clicked=false;
     }    
 }
 
 void button_multi_clicked(GtkButton *button, GtkEntry *entry) {
-    if (screen_data[screen_index-1]!='+' && screen_data[screen_index-1]!='-' && screen_data[screen_index-1]!='*' && screen_data[screen_index-1]!='/')
+    if (screen_data[screen_index-1]!='+' && screen_data[screen_index-1]!='-' && screen_data[screen_index-1]!='*' && screen_data[screen_index-1]!='/' && screen_data[screen_index-1]!='\0' && screen_data[screen_index-1]!='.')
     {
         screen_append('*');
         gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), screen_data, strlen(screen_data));
+        is_dot_clicked=false;
     }    
 }
 
 void button_div_clicked(GtkButton *button, GtkEntry *entry) {
-    if (screen_data[screen_index-1]!='+' && screen_data[screen_index-1]!='-' && screen_data[screen_index-1]!='*' && screen_data[screen_index-1]!='/')
+    if (screen_data[screen_index-1]!='+' && screen_data[screen_index-1]!='-' && screen_data[screen_index-1]!='*' && screen_data[screen_index-1]!='/' && screen_data[screen_index-1]!='\0' && screen_data[screen_index-1]!='.')
     {
         screen_append('/');
         gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), screen_data, strlen(screen_data));
+        is_dot_clicked=false;
     }    
 }
 
 void button_eq_clicked(GtkButton *button, GtkEntry *entry) {
-    result = te_interp(screen_data, 0);
-    memset(screen_data, '\0', sizeof(screen_data));
-    screen_index=0;
-    is_dot_clicked=false;
-    snprintf(screen_data, sizeof(screen_data), "%.2f", result);
-    gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), screen_data, strlen(screen_data));
-    memset(screen_data, '\0', sizeof(screen_data));
-    screen_index=0;
+
+    if (screen_data[screen_index-1]!='+' && screen_data[screen_index-1]!='-' && screen_data[screen_index-1]!='*' && screen_data[screen_index-1]!='/' && screen_data[screen_index-1]!='\0' && screen_data[screen_index-1]!='.')
+    {   
+        result = te_interp(screen_data, 0);
+        if (result)
+        {   
+            memset(screen_data, '\0', sizeof(screen_data));
+            screen_index=0;
+            is_dot_clicked=false;
+            snprintf(screen_data, sizeof(screen_data), "%.2f", result);
+            gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), screen_data, strlen(screen_data));
+            memset(screen_data, '\0', sizeof(screen_data));
+            screen_index=0;
+        }   
+    }
+    else
+    {
+        gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), screen_data, strlen(screen_data));
+    }
 }
 
 void button_0_clicked(GtkButton *button, GtkEntry *entry) {
