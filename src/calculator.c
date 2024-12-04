@@ -12,8 +12,7 @@ static void screen_append(char val){
     else
     {
         exit(0);
-    }
-    
+    } 
 }
 
 static void screen_del(){
@@ -27,7 +26,6 @@ static void screen_del(){
     {
         exit(0);
     }
-    
 }
 
 void button_del_clicked(GtkButton *button, GtkEntry *entry) {
@@ -110,12 +108,10 @@ void button_eq_clicked(GtkButton *button, GtkEntry *entry) {
         if (result)
         {   
             memset(screen_data, '\0', sizeof(screen_data));
-            screen_index=0;
             is_dot_clicked=false;
             snprintf(screen_data, sizeof(screen_data), "%.2f", result);
             gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(entry)), screen_data, strlen(screen_data));
-            memset(screen_data, '\0', sizeof(screen_data));
-            screen_index=0;
+            screen_index=strlen(screen_data);
         }   
     }
     else
